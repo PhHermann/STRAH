@@ -101,3 +101,8 @@ The following command detects the specified "motif" in the chimpanzees reference
 ```R
 motif_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660, motif = "A", nr.mismatch = 0, reverse.comp = FALSE, print.status = FALSE, species = BSgenome.Ptroglodytes.UCSC.panTro5)
 ```
+
+# References 
+Heissl, A., Betancourt, A. J., Hermann, P., Povysil, G., Arbeithuber, B., Futschik, A., Ebner, T., Tiemann-Boege, I. (2018). Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. bioRxiv 431841; [doi](<https://doi.org/10.1101/431841>). 
+
+Pratto, F., Brick, K., Khil, P., Smagulova, F., Petukhova, G. V. & Camerini-Otero, R. D. (2014) DNA recombination. Recombination initiation maps of individual human genomes. Science, 825 346, 1256442. 
