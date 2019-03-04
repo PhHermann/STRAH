@@ -1,22 +1,22 @@
 #' Detection of short tandem repeats (STRs) in a given region of any reference genome
 #' @description  This function searches for short tandem repeats (STRs) in a specified region of any reference genome. The parameters of the regions under study can be directly given in the function arguments or read in via either a BED-file or a position matrix. We recommend to search for STRs of minimum length 6. Options to save the output or usage of any reference genome are provided.
-#' @param seqName A character string which is the name of the given sequence file under study. Can also be set to "" in order to analyze an defined sequence from any reference genome such as the package BSgenome.Hsapiens.UCSC.hg19 for humans.
-#' @param chrs A string reflecting the chromosome under study (starting with "chr" and adding either the integers from 1-22 or "X" respectively "Y"). This argument can also be a vector of strings to study several chromosomes.
+#' @param seqName A character string which is the name of the given sequence file under study. Can also be set to "" in order to analyze a defined sequence from any reference genome such as the package BSgenome.Hsapiens.UCSC.hg19 for humans.
+#' @param chrs A string reflecting the chromosome under study (starting with "chr" and adding either the integers from 1-22 or "X" respectively "Y" for the human genome). This argument can also be a vector of strings to study several chromosomes.
 #' @param start.position An integer value reflecting the start position of the region to be analyzed. If set to \code{NA} the analysis starts from the beginning of the chromosome.
 #' @param end.position An integer value reflecting the end position of the region to be analyzed. If set to \code{NA} the analysis is performed until the end of the chromosome.
 #' @param nr.STRs An integer value as the minimum length of STRs to be detected.
-#' @param nr.mismatch An iInteger value reflecting the allowed number of mismatches of the short tandem repeats. By defaults set to 0.
+#' @param nr.mismatch An integer value reflecting the allowed number of mismatches of the short tandem repeats. By defaults set to 0.
 #' @param reverse.comp A logical value by default \code{FALSE}. If set to \code{TRUE} then the reverse complement of the sequence is analyzed.
 #' @param STR A character string for the nucleotide to be searched for. By default one searches for poly-As, hence set to "A".
 #' @param bed_file A bed file containing the chromosomes, start, and end positions of the region(s) that should be analyzed.
 #' @param pos_matrix A matrix or dataframe containing the chromosomes, start, and end positions of the region(s) that should be analyzed.
 #' @param species The human genome (version 19) is default but an alternative genome can be provided. For chimpanzees the parameter has to be BSgenome.Ptroglodytes.UCSC.panTro5 (given that the data is installed).
-#' @param translated_regions A logical value by default \code{FALSE}. If set to \code{TRUE} then the function assumes that the parameters start.position and end.position were translated by some tool (e.g. Liftover) from one species to another. The untranslated and translated positions are included in the output.
+#' @param translated_regions A logical value by default \code{FALSE}. If set to \code{TRUE} then the function assumes that the parameters start.position and end.position were translated by some tool (e.g. liftOver) from one species to another. The untranslated and translated positions are included in the output.
 #' @param output_file The default is an empty string and does not save an output-file. The output will be saved if the parameter is changed to a user defined string excluding the extension (by default .bed).
 #'
 #' @return The output of the function is a list with the following content:
-#' \item{Sequence name}{The chromosome with the starting and end position of the region under study is provided. If translated_region is set to \code{TRUE}, the interval will be the translated region.}
-#' \item{Sequence name (untranslated)}{Only if translated_region is set to \code{TRUE}, then the untranslated region (chromosome with the starting and end position) is provided.}
+#' \item{Sequence name}{The chromosome with the start and end position of the region under study is provided. If \code{translated_region} is set to \code{TRUE}, the interval will be the translated region.}
+#' \item{Sequence name (untranslated)}{Only if \code{translated_region} is set to \code{TRUE}, then the untranslated region (chromosome with the starting and end position) is provided.}
 #' \item{Reverse complement}{An indicator whether the reverse complement was considered}
 #' \item{Number of allowed mismatches}{The number of allowed mismatches is provided.}
 #' \item{Minimum length}{The minimum length of the STR to be extracted is provided.}
@@ -24,7 +24,7 @@
 #' \item{Length of STR stretch in bp}{A vector containing the length of STRs per match is provided.}
 #' \item{Start positions}{The starting positions of the STRs are provided.}
 #' \item{Matched segments}{The matched segments of the STRs are provided.}
-#' @return A BED file with chromosomes, start and end position of the STRs, length of the STR stretch, the matched segments and the specified region (untranslated and translated) that was analyzed are given as columns.
+#' @return A BED file with chromosomes, start, and end position of the STRs, length of the STR stretch, the matched segments, and the specified region (untranslated and translated) that was analyzed are given as columns.
 #' @author Philipp Hermann, \email{philipp.hermann@@jku.at}, Monika Heinzl, \email{monika.heinzl@@edumail.at}
 #' Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
 #' @seealso \code{\link{getflank2}}, \code{\link{STR_analysis}}
@@ -43,6 +43,7 @@
 #'
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
+#' Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 #'
 #' @keywords datasets, array, list, methods, univar
 #' @export

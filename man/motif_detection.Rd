@@ -2,7 +2,7 @@
 % Please edit documentation in R/motif_detection.R
 \name{motif_detection}
 \alias{motif_detection}
-\title{DNA-motif detection in a given DNAStringSet, a given DNA-sequence in fasta-format or a specified region of any genome}
+\title{DNA-motif detection in a given DNAStringSet, a given DNA-sequence in fasta-format, or a specified region of any genome}
 \usage{
 motif_detection(seqName, chrs, start.position, end.position, motif,
   nr.mismatch = 0, reverse.comp = F, print.status = T,
@@ -11,7 +11,7 @@ motif_detection(seqName, chrs, start.position, end.position, motif,
 \arguments{
 \item{seqName}{A character string which can either be the name of a DNAStringSet object or a sequence name referring to a fasta-file to be analyzed. This argument can only be ignored if \code{chr} and \code{start.position} and \code{end.position} are specified.}
 
-\item{chrs}{A character string reflecting the chromosome under study (starting with "chr" and adding either the integers from 1-22 or "X" respectively "Y"). This argument can also be a vector of strings to study several chromosomes.}
+\item{chrs}{A character string reflecting the chromosome under study (starting with "chr" and adding either the integers from 1-22 or "X" respectively "Y" for the human chromosome). This argument can also be a vector of strings to study several chromosomes.}
 
 \item{start.position}{An integer value reflecting the start position of the region to be analyzed. If set to \code{NA} the analysis starts from the beginning of the chromosome.}
 

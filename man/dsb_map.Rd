@@ -3,7 +3,7 @@
 \docType{data}
 \name{dsb_map}
 \alias{dsb_map}
-\title{Data of the DsbMap}
+\title{Data of the DsbMap for humans}
 \format{The data set contains 37527 rows and 27 columns. We provide information on the most important columns (column nr, column name) hereafter:
 \describe{
 \item{1, chrom}{The chromosome under study}

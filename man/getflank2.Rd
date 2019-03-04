@@ -16,7 +16,7 @@ getflank2(species, chrs, start.position, end.position)
 \item{end.position}{An integer value reflecting the end position of the region to be analyzed. If set to \code{NA} the analysis is performed until the end of the chromosome.}
 }
 \value{
-The DNA-sequence of the region under study (defined by the chromosome, start position and end position) is returned.
+The DNA-sequence of the region under study (defined by the chromosome, start position, and end position) is returned.
 }
 \description{
 This function extracts a specified region of the human genome with corresponding start and end position of the region under study.

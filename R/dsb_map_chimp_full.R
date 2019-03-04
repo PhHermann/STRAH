@@ -1,7 +1,7 @@
 #' Data of the DsbMap for chimpanzees
 #'
-#' A dataset containing all translated PRDM9-A type hotspots of Pratto et al. 2014 for chimpanzees.
-#' Translation was done via liftOver of the UCSC Genome Browser from the human genome (hg19) to the chimpanzees genome (panTro5).
+#' A dataset containing all translated PRDM9-A type hotspots of Pratto et al. (2014) for chimpanzees.
+#' The translation was performed using liftOver of the UCSC Genome Browser from the human genome (hg19) to the chimpanzees genome (panTro5).
 #' @docType data
 #' @usage data (dsb_map_chimp_full)
 #' @format The data set contains 64078 rows and 3 columns. We provide information on the columns (column nr, column name) hereafter:
@@ -12,6 +12,7 @@
 #' }
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
+#' Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 #'
 #' @seealso \code{\link{STR_analysis}}, \code{\link{STR_detection}}
 #' @name dsb_map_chimp_full

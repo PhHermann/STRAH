@@ -6,13 +6,13 @@
 \alias{STRAH-package}
 \title{STRAH: A package to detect DNA-motifs or short tandem repeats (STRs) in reference genomes}
 \description{
-The STRAH package provides functions to extract DNA sequence data of reference genomes, functions to search for DNA-motifs in a defined DNA-sequence or to detect short tandem repeats (STRs) of specified length, and to analyze detected STRs in the human genome by comparing them with double strand break hotspots.
+The STRAH package provides functions to extract DNA sequence data of reference genomes, functions to search for DNA-motifs in a defined DNA-sequence or to detect short tandem repeats (STRs) of specified length, and to analyze detected STRs in the human (or chimpanzees) genome by comparing them with (translated) double strand break hotspots.
 }
 \section{}{
  STRAH functions:
 \describe{
 \item{getflank2}{Extract a specified region of any reference genome (e.g. humans, chimpanzees, ...)}
-\item{motif_detection}{DNA-motif detection of a given DNAStringSet, a given DNA-sequence in fasta-format or a specified region of any genome}
+\item{motif_detection}{DNA-motif detection of a given DNAStringSet, a given DNA-sequence in fasta-format, or a specified region of any genome}
 \item{STR_detection}{Detection of short tandem repeats (STRs) in either one or several regions of a given species}
 \item{STR_analysis}{Analysis of detected short tandem repeats (STRs) in either one or several regions of a given species}
 }
@@ -28,6 +28,7 @@ STRAH data sets:
 \references{
 Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
    Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
+   Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 }
 \author{
 Philipp Hermann, \email{philipp.hermann@jku.at} (Maintainer), Monika Heinzl, \email{monika.heinzl@edumail.at}

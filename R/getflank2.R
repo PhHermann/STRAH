@@ -4,7 +4,7 @@
 #' @param chrs A string reflecting the chromosome under study (starting with "chr" and adding either the integers from 1-22 or "X" respectively "Y"). This argument can also be a vector of strings to study several chromosomes.
 #' @param start.position An integer value reflecting the start position of the region to be analyzed. If set to \code{NA} the analysis starts from the beginning of the chromosome.
 #' @param end.position An integer value reflecting the end position of the region to be analyzed. If set to \code{NA} the analysis is performed until the end of the chromosome.
-#' @return The DNA-sequence of the region under study (defined by the chromosome, start position and end position) is returned.
+#' @return The DNA-sequence of the region under study (defined by the chromosome, start position, and end position) is returned.
 #' @author Philipp Hermann, \email{philipp.hermann@@jku.at}, Monika Heinzl, \email{monika.heinzl@@edumail.at}
 #' Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
 #' @seealso \code{\link{STR_analysis}}

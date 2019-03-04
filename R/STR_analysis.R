@@ -2,17 +2,17 @@
 #' @description  This function separates detected short tandem repeats (STRs) into different zones. These zones are either the hotspot zone defined by the double strand break maps of Pratto et al. (2014) or adjacent flanking zones (greyzones) left and right of the hotspots of user specified lengths. The parameters of the regions under study can be directly given in the function arguments or read in via either a BED-file or a position matrix.
 #' @param nr.STRs An integer value reflecting the minimum length of STRs to be searched for.
 #' @param nr.mismatch An integer value reflecting the allowed number of mismatches of the short tandem repeats. By default it set to 0.
-#' @param chrs A string reflecting the chromosome under study (starting with "chr" and adding either the integers from 1-22 or "X" respectively "Y"). This argument can also be a vector of strings to study several chromosomes.
+#' @param chrs A string reflecting the chromosome under study (starting with "chr" and adding either the integers from 1-22 or "X" respectively "Y" for the human genome). This argument can also be a vector of strings to study several chromosomes.
 #' @param start.position An integer value reflecting the start position of the region to be analyzed. If set to \code{NA} the analysis starts from the beginning of the chromosome.
 #' @param end.position An integer value reflecting the end position of the region to be analyzed. If set to \code{NA} the analysis is performed until the end of the chromosome.
 #' @param reverse.comp A logical value by default \code{FALSE}. If set to \code{TRUE} then the reverse complement of the sequence is analyzed.
 #' @param STR A character string for the nucleotide to be searched for. By default one searches for poly-As, hence set to "A".
 #' @param lens.grey An integer value which is by default a vector of 6 integer values. These values represent the greyzones to be studied left and right from the hotspot regions.
-#' @param bed_file A bed file containing the chromosomes, start and end positions of the region(s) that should be analyzed.
-#' @param pos_matrix A matrix or dataframe containing the chromosomes, start and end positions of the region(s) that should be analyzed.
+#' @param bed_file A bed file containing the chromosomes, start, and end positions of the region(s) that should be analyzed.
+#' @param pos_matrix A matrix or dataframe containing the chromosomes, start, and end positions of the region(s) that should be analyzed.
 #' @param output_file The default is an empty string and does not save an output-file. The output will be saved if the parameter is changed to a user defined string excluding the extension (by default .bed).
 #' @param species The human genome (version 19) is default but an alternative genome can be provided. For chimpanzees the parameter has to be BSgenome.Ptroglodytes.UCSC.panTro5 (given that the data is installed).
-#' @param dsb_map The DSB map of the human genome (version 19) is default but an alternative DSB map from a different genome can be provided. This parameter needs to be a data frame with at least 3 columns that contains the chromosome, start and end position of the DSB. The DSB map for chimpanzees is included in the package.
+#' @param dsb_map The DSB map of the human genome (version 19) is default but an alternative DSB map from a different genome can be provided. This parameter needs to be a data frame with at least 3 columns that contains the chromosome, start, and end position of the DSB. The DSB map for chimpanzees is included in the package.
 #'
 #' @return The output of the function is a list with the following content:
 #' \item{Sequence Name}{The chromosome with the starting and end position of the region under study is provided.}
@@ -30,6 +30,7 @@
 #' @seealso \code{\link{getflank2}}, \code{\link{STR_detection}}
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
+#' Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 #' @examples
 #' STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
 #' start.position = 30000000, end.position = 40000000, reverse.comp = FALSE,
@@ -48,7 +49,7 @@
 #' @keywords datasets, array, list, methods, univar
 #' @export
 #'
-STR_analysis = function(nr.STRs = 10, nr.mismatch = 0, chrs = "", STR = "A", lens.grey = lens.grey, start.position = NA,
+STR_analysis = function(nr.STRs = 10, nr.mismatch = 0, chrs = "", STR = "A", lens.grey = 0:5*1000, start.position = NA,
                         end.position = NA, reverse.comp = FALSE, bed_file = "", pos_matrix = "", output_file="",
                         species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map) {
 

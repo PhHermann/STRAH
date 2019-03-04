@@ -1,4 +1,4 @@
-#' Data of the DsbMap
+#' Data of the DsbMap for humans
 #'
 #' A dataset containing the PRDM9-A type hotspots of Pratto et al. 2014.
 #' @docType data

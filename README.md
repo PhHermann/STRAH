@@ -106,3 +106,5 @@ motif_detection(seqName = "", chrs = "chr1", start.position =222339618, end.posi
 Heissl, A., Betancourt, A. J., Hermann, P., Povysil, G., Arbeithuber, B., Futschik, A., Ebner, T., Tiemann-Boege, I. (2018). Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. bioRxiv 431841; [doi](<https://doi.org/10.1101/431841>). 
 
 Pratto, F., Brick, K., Khil, P., Smagulova, F., Petukhova, G. V. & Camerini-Otero, R. D. (2014) DNA recombination. Recombination initiation maps of individual human genomes. Science, 825 346, 1256442. 
+
+Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
