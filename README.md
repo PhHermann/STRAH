@@ -86,7 +86,7 @@ The logical parameter *translated_regions* is *FALSE* by default. If set to \cod
 
 ### Motif_detection
 
-This function searches for a given "motif" in a sequence (\code{seqName}). The argument \code{seqName} can be either a *DNAStringSet* object or refers to a fasta-file. Additionally, we provide the option to specify a chromosome as well as start and stop position for a region of the human genome to be analyzed. Optionally, one can also specify the number of mismatches and whether the reverse complement has to be searched.
+This function searches for a given "motif" in a sequence (*seqName*). The argument *seqName* can be either a *DNAStringSet* object or refers to a fasta-file. Additionally, we provide the option to specify a chromosome as well as start and stop position for a region of the human genome to be analyzed. Optionally, one can also specify the number of mismatches and whether the reverse complement has to be searched.
 
 ```R
 motif_detection(seqName = chr6_1580213_1582559, chrs="",
