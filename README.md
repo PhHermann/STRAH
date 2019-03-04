@@ -82,11 +82,11 @@ STR_detection(seqName = "", chrs = "chr1", start.position =222339618, end.positi
  nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A", species = BSgenome.Ptroglodytes.UCSC.panTro5)
 ```
 
-The logical parameter *translated_regions* is *FALSE* by default. If set to \code{TRUE} then the function assumes that the parameters *start.position* and *end.position* were translated by some tool (e.g. liftOver) from one species to another. The untranslated and translated positions are included in the output.
+The logical parameter *translated_regions* is *FALSE* by default. If set to *TRUE* then the function assumes that the parameters *start.position* and *end.position* were translated by some tool (e.g. liftOver) from one species to another. The untranslated and translated positions are included in the output.
 
 ### Motif_detection
 
-This function searches for a given "motif" in a sequence (\code{seqName}). The argument \code{seqName} can be either a *DNAStringSet* object or refers to a fasta-file. Additionally, we provide the option to specify a chromosome as well as start and stop position for a region of the human genome to be analyzed. Optionally, one can also specify the number of mismatches and whether the reverse complement has to be searched.
+This function searches for a given "motif" in a sequence (*seqName*). The argument *seqName* can be either a *DNAStringSet* object or refers to a fasta-file. Additionally, we provide the option to specify a chromosome as well as start and stop position for a region of the human genome to be analyzed. Optionally, one can also specify the number of mismatches and whether the reverse complement has to be searched.
 
 ```R
 motif_detection(seqName = chr6_1580213_1582559, chrs="",
