@@ -99,7 +99,8 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
         name <- paste0(chrs[s], ":", formatC(start.position[s], format = "fg"), "-", formatC(end.position[s], format = "fg"))
       }
     }
-    message(paste0(name, " of ", toString(species), " is under study!"),"\r",appendLF=TRUE)
+    if(seqName == "") {message(paste0(name, " of ", toString(species), " is under study!"),"\r",appendLF=TRUE)}
+    else {message(paste0(seqName, " is under study!"),"\r",appendLF=TRUE)}
 
     tp = unlist(strsplit(Biostrings::toString(sequence[s,]), split  ="")) == STR
     #motif <- paste(rep(STR, nr.STRs), collapse = "")
