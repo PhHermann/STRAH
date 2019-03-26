@@ -29,7 +29,7 @@
 #' Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
 #' @seealso \code{\link{getflank2}}, \code{\link{STR_analysis}}
 #' @examples
-#' STR_detection(seqName = "", chrs = "chr22", start.position = 30000000, end.position = 40000000,
+#' STR_detection(seqName = "", chrs = "chr22", start.position = 30000000, end.position = 31000000,
 #' nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
 #' species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE, output_file = "")
 #' # If you want to use the function with a different reference genome
@@ -99,8 +99,11 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
         name <- paste0(chrs[s], ":", formatC(start.position[s], format = "fg"), "-", formatC(end.position[s], format = "fg"))
       }
     }
-    if(seqName == "") {message(paste0(name, " of ", toString(species), " is under study!"),"\r",appendLF=TRUE)}
-    else {message(paste0(seqName, " is under study!"),"\r",appendLF=TRUE)}
+    if(seqName == "") {
+      message(paste0(name, " of ", toString(species), " is under study!"),"\r",appendLF=TRUE)
+    } else {
+        message(paste0(seqName, " is under study!"),"\r",appendLF=TRUE)
+    }
 
     tp = unlist(strsplit(Biostrings::toString(sequence[s,]), split  ="")) == STR
     #motif <- paste(rep(STR, nr.STRs), collapse = "")
@@ -197,10 +200,10 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
         write.table(rbind(header),paste0(output_file, ".bed"), sep = "\t", col.names = FALSE, row.names = FALSE, quote=FALSE)
       }
       if (translated_regions){
-        df <- data.frame(chr_str = rep(chrs[s], length(start.pos)),start_str = start.pos-1, end_str = start.pos + nr.STRs.c, len_str = nr.STRs.c, sequence_str = matches, chr_name = rep(name, length(start.pos)), chr_name_original = rep(original_region[s], length(start.pos)))
+        df <- data.frame(chr_str = rep(chrs[s], length(start.pos)),start_str = start.pos-1, end_str = start.pos + nr.STRs.c-1, len_str = nr.STRs.c, sequence_str = matches, chr_name = rep(name, length(start.pos)), chr_name_original = rep(original_region[s], length(start.pos)))
       }
       else{
-        df <- data.frame(chr_str = rep(chrs[s], length(start.pos)),start_str = start.pos-1, end_str = start.pos + nr.STRs.c, len_str = nr.STRs.c, sequence_str = matches, chr_name = rep(name, length(start.pos)))
+        df <- data.frame(chr_str = rep(chrs[s], length(start.pos)),start_str = start.pos-1, end_str = start.pos + nr.STRs.c-1, len_str = nr.STRs.c, sequence_str = matches, chr_name = rep(name, length(start.pos)))
       }
       write.table(df, paste0(output_file, ".bed"), col.names=FALSE, sep="\t", row.names = FALSE, append=TRUE, quote=FALSE)
 

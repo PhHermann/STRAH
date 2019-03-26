@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 STRAH.pdf
-ToDo.txt
-ChimpAnalysis_STRanalysis
+^/.git
+desktop.ini
+README.md

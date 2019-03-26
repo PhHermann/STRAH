@@ -1,24 +1,25 @@
 Package: STRAH
 Type: Package
 Title: Short Tandem Repeats Analysis of Hotspot Zones
-Version: 0.1.0
+Version: 1.0
 Authors@R: c(person("Philipp", "Hermann", role = c("aut", "cre"), email = "philipp.hermann@jku.at", comment = c(ORCID = "https://orcid.org/0000-0003-4556-6297")),
              person("Monika", "Heinzl", role = "aut",   email = "monika.heinzl@edumail.at"), 
              person("Angelika", "Heissl", role = "ctb"), 
              person("Irene", "Tiemann-Boege", role = "ctb", comment = c(ORCID = "https://orcid.org/0000-0002-3621-7020")), 
-             person("Andreas", "Futschik", role = "ctb", comment = c(ORCID = "http://orcid.org/0000-0002-7980-0304")))
-Author: Philipp Hermann [aut, cre], 
+             person("Andreas", "Futschik", role = "ctb", comment = c(ORCID = "https://orcid.org/0000-0002-7980-0304")))
+Author: Philipp Hermann [aut, cre] (https://orcid.org/0000-0003-4556-6297), 
         Monika Heinzl [aut], 
         Angelika Heissl [ctb], 
-        Irene Tiemann-Boege [ctb], 
-        Andreas Futschik [ctb]
+        Irene Tiemann-Boege [ctb] (https://orcid.org/0000-0002-3621-7020), 
+        Andreas Futschik [ctb] (https://orcid.org/0000-0002-7980-0304)
 Maintainer: Philipp Hermann <philipp.hermann@jku.at>
-Description: This package enables to search for short tandem repeats (STR) in a specified region of any genome. This analysis can be expanded such that several regions (chromosomes) are studied. These STRs can be grouped into hotspot as well as flanking regions of user specified width. Hotspots are defined by the double strand break maps from Pratto et al. (2014). Moreover, the user can also search for a specified motif in a DNAStringSet-object, or a fasta-file, or a specified region of any genome. 
+Description: Searches for short tandem repeats (STR) in a specified region of any genome. This analysis can be expanded such that several regions (chromosomes) are studied. These STRs can be grouped into hotspot as well as flanking regions of user specified width. Hotspots are defined by the double strand break maps from Pratto et al. (2014). Moreover, the user can also search for a specified motif in a DNAStringSet-object, or a fasta-file, or a specified region of any genome. 
 Imports: Biostrings (>= 2.38.4), 
     BSgenome.Hsapiens.UCSC.hg19
 Depends: R (>= 2.10)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
-BugReports: https://github.com/PhHermann/STRAH
+BugReports: https://github.com/PhHermann/STRAH/issues
 RoxygenNote: 6.1.1
+URL: https://github.com/PhHermann/STRAH/issues

@@ -55,7 +55,7 @@ This function separates detected short tandem repeats (STRs) into different zone
 }
 \examples{
 STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
-start.position = 30000000, end.position = 40000000, reverse.comp = FALSE,
+start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
 bed_file = "", pos_matrix = "", output_file = "",
 species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
 
@@ -65,7 +65,7 @@ species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
 # biocLite("BSgenome.Ptroglodytes.UCSC.panTro5")
 # library(BSgenome.Ptroglodytes.UCSC.panTro5)
 # STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
-# start.position = 30000000, end.position = 40000000, reverse.comp = FALSE, bed_file = "",
+# start.position = 30000000, end.position = 31000000, reverse.comp = FALSE, bed_file = "",
 # pos_matrix = "", output_file = "", species = BSgenome.Ptroglodytes.UCSC.panTro5,
 # dsb_map = STRAH::dsb_map_chimp_full)
 }

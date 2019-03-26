@@ -33,7 +33,7 @@
 #' Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 #' @examples
 #' STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
-#' start.position = 30000000, end.position = 40000000, reverse.comp = FALSE,
+#' start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
 #' bed_file = "", pos_matrix = "", output_file = "",
 #' species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
 #'
@@ -43,7 +43,7 @@
 #' # biocLite("BSgenome.Ptroglodytes.UCSC.panTro5")
 #' # library(BSgenome.Ptroglodytes.UCSC.panTro5)
 #' # STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
-#' # start.position = 30000000, end.position = 40000000, reverse.comp = FALSE, bed_file = "",
+#' # start.position = 30000000, end.position = 31000000, reverse.comp = FALSE, bed_file = "",
 #' # pos_matrix = "", output_file = "", species = BSgenome.Ptroglodytes.UCSC.panTro5,
 #' # dsb_map = STRAH::dsb_map_chimp_full)
 #' @keywords datasets, array, list, methods, univar
@@ -110,7 +110,6 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
  #pos.chr = sapply(1:length(chrs), function(i) {
    which(dsb_map$chrom == as.character(chrs[i]))
    })
-
  if(length(length_chr) == 1) {
    pos.chr <- list(c(pos.chr))
  }
@@ -169,7 +168,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
     if (is.data.frame(df) == FALSE){
       write.table(rbind(header), paste0(output_file, ".bed"), sep = "\t", col.names = FALSE, row.names = FALSE, quote=FALSE)
     }
-    df <- data.frame(chr_str = rep(chrs[s], length(pos.As[[counter]])),start_str = pos.As[[counter]], end_str = pos.As[[counter]] + length.As[[counter]], len_str = length.As[[counter]], zones = code.zone[[counter]], chr_name = rep(name_file, length(pos.As[[counter]])))
+    df <- data.frame(chr_str = rep(chrs[s], length(pos.As[[counter]])),start_str = pos.As[[counter]]-1, end_str = pos.As[[counter]] + length.As[[counter]]-1, len_str = length.As[[counter]], zones = code.zone[[counter]], chr_name = rep(name_file, length(pos.As[[counter]])))
 
     write.table(df, paste0(output_file, ".bed"), col.names=FALSE, sep="\t", row.names = FALSE, append=TRUE, quote=FALSE)
    }
