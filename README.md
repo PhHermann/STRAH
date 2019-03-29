@@ -21,7 +21,8 @@ The ZIP-File of the package can be downloaded via "Clone or download" as well as
 
 ```markdown
 git clone https://github.com/PhHermann/STRAH.git
-R CMD INSTALL STRAH
+R CMD build STRAH
+R CMD INSTALL STRAH_<version>.tar.gz
 ``` 
 
 Using *R* one can also install the *.tar.gz* file with the following command: 
