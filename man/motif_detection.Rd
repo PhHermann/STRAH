@@ -50,15 +50,15 @@ motif_detection(seqName = "", chrs = "chr6",
 start.position = 1580213, end.position = 1582559,
 motif = "CCNCCNTNNCCNC", nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
 
+\donttest{
 # If you want to use the function with a different reference genome
 # make your choice and install it before:
-# source("http://bioconductor.org/biocLite.R")
-# biocLite("BSgenome.Ptroglodytes.UCSC.panTro5")
-# library(BSgenome.Ptroglodytes.UCSC.panTro5)
-# motif_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660,
-# motif = "A", nr.mismatch = 0, reverse.comp = FALSE,
-# print.status = FALSE, species = BSgenome.Ptroglodytes.UCSC.panTro5)
-
+BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
+library(BSgenome.Ptroglodytes.UCSC.panTro5)
+motif_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660,
+motif = "A", nr.mismatch = 0, reverse.comp = FALSE,
+print.status = FALSE, species = BSgenome.Ptroglodytes.UCSC.panTro5)
+}
 }
 \references{
 Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
