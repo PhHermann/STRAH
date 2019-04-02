@@ -59,15 +59,17 @@ start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
 bed_file = "", pos_matrix = "", output_file = "",
 species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
 
-# If you want to use the function with a different reference genome
+\donttest{
+#' # If you want to use the function with a different reference genome
 # make your choice and install it before:
-# source("http://bioconductor.org/biocLite.R")
-# biocLite("BSgenome.Ptroglodytes.UCSC.panTro5")
-# library(BSgenome.Ptroglodytes.UCSC.panTro5)
-# STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
-# start.position = 30000000, end.position = 31000000, reverse.comp = FALSE, bed_file = "",
-# pos_matrix = "", output_file = "", species = BSgenome.Ptroglodytes.UCSC.panTro5,
-# dsb_map = STRAH::dsb_map_chimp_full)
+source("http://bioconductor.org/biocLite.R")
+biocLite("BSgenome.Ptroglodytes.UCSC.panTro5")
+library(BSgenome.Ptroglodytes.UCSC.panTro5)
+STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
+start.position = 30000000, end.position = 31000000, reverse.comp = FALSE, bed_file = "",
+pos_matrix = "", output_file = "", species = BSgenome.Ptroglodytes.UCSC.panTro5,
+dsb_map = STRAH::dsb_map_chimp_full)
+}
 }
 \references{
 Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841

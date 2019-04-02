@@ -32,15 +32,16 @@
 #' STR_detection(seqName = "", chrs = "chr22", start.position = 30000000, end.position = 31000000,
 #' nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
 #' species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE, output_file = "")
+#' \donttest{
 #' # If you want to use the function with a different reference genome
 #' # make your choice and install it before:
-#' # source("http://bioconductor.org/biocLite.R")
-#' # biocLite("BSgenome.Ptroglodytes.UCSC.panTro5")
-#' # library(BSgenome.Ptroglodytes.UCSC.panTro5)
-#' # STR_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660,
-#' # nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
-#' # species = BSgenome.Ptroglodytes.UCSC.panTro5)
-#'
+#' source("http://bioconductor.org/biocLite.R")
+#' biocLite("BSgenome.Ptroglodytes.UCSC.panTro5")
+#' library(BSgenome.Ptroglodytes.UCSC.panTro5)
+#' STR_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660,
+#' nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
+#' species = BSgenome.Ptroglodytes.UCSC.panTro5)
+#' }
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
 #' Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
