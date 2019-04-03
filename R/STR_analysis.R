@@ -1,5 +1,6 @@
 #' Analysis of short tandem repeats (STRs) in a given region of any reference genome
 #' @description  This function separates detected short tandem repeats (STRs) into different zones. These zones are either the hotspot zone defined by the double strand break maps of Pratto et al. (2014) or adjacent flanking zones (greyzones) left and right of the hotspots of user specified lengths. The parameters of the regions under study can be directly given in the function arguments or read in via either a BED-file or a position matrix.
+#' @param seqName A character string which is the name of the given sequence file under study. Can also be set to "" in order to analyze a defined sequence from any reference genome such as the package BSgenome.Hsapiens.UCSC.hg19 for humans.
 #' @param nr.STRs An integer value reflecting the minimum length of STRs to be searched for.
 #' @param nr.mismatch An integer value reflecting the allowed number of mismatches of the short tandem repeats. By default it set to 0.
 #' @param chrs A string reflecting the chromosome under study (starting with "chr" and adding either the integers from 1-22 or "X" respectively "Y" for the human genome). This argument can also be a vector of strings to study several chromosomes.
@@ -30,15 +31,19 @@
 #' @seealso \code{\link{getflank2}}, \code{\link{STR_detection}}
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
-#' Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
+#'    Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 #' @examples
-#' STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
+#' data(chr6_1580213_1582559)
+#' STR_analysis(seqName = chr6_1580213_1582559, nr.STRs = 10, nr.mismatch = 0, chrs = "chr6",
+#' STR = "A", #' lens.grey = 0:1*100, start.position = 1580213, end.position = 1582559,
+#' reverse.comp = FALSE, bed_file = "", pos_matrix = "", output_file = "",
+#' species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
+#' \donttest{
+#' STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:1*100,
 #' start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
 #' bed_file = "", pos_matrix = "", output_file = "",
 #' species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
-#'
-#' \donttest{
-#' #' # If you want to use the function with a different reference genome
+#' # If you want to use the function with a different reference genome
 #' # make your choice and install it before:
 #' BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
 #' library(BSgenome.Ptroglodytes.UCSC.panTro5)
@@ -50,10 +55,11 @@
 #' @keywords datasets, array, list, methods, univar
 #' @export
 #'
-STR_analysis = function(nr.STRs = 10, nr.mismatch = 0, chrs = "", STR = "A", lens.grey = 0:5*1000, start.position = NA,
+STR_analysis = function(seqName="", nr.STRs = 10, nr.mismatch = 0, chrs = "", STR = "A", lens.grey = 0:5*1000, start.position = NA,
                         end.position = NA, reverse.comp = FALSE, bed_file = "", pos_matrix = "", output_file="",
                         species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map) {
-
+ if(sum(c(seqName != "", bed_file != "", pos_matrix != "")) >= 2) {stop("Please only provide one of the parameters seqName, chrs, bed_file, or pos_matrix!")}
+ if(class(seqName) == "DNAStringSet" & chrs == "") {stop("Please also provide chrs when you use a DNAStringSet-object!")}
  ind = length.As = pos.As = seq_name_list = nr_matches = original_region_list = list()
  df <- ""
  if(bed_file != ""){
@@ -70,20 +76,28 @@ STR_analysis = function(nr.STRs = 10, nr.mismatch = 0, chrs = "", STR = "A", len
 
  index_chr_no_str <- vector(mode="logical", length=0)
  index_str = 1
+
  for(index in 1:length(chrs)) {
-  if(bed_file == "" && is.data.frame(pos_matrix) == FALSE && is.matrix(pos_matrix) == FALSE){
-     assign(paste("results.", chrs[index], sep = ""),
-            STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+   if(bed_file != "" || is.data.frame(pos_matrix) == T || is.matrix(pos_matrix) == T){
+     print("i am in if1 ")
+     assign(paste0("results.", chrs[index]),
+            STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+                          start.position = start.position[index], end.position = end.position[index],
+                          translated_regions=F, output_file="", species = species)) # start.position = 1, end.position = chr.lengths[index],
+   } else if(seqName == "") {
+     print("I am in if2")
+    assign(paste0("results.", chrs[index]),
+            STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
                                  start.position = start.position, end.position = end.position,
                                  translated_regions=F, output_file = "", species = species)) # start.position = 1, end.position = chr.lengths[index],
+  } else {
+     print("i am in if3")
+    assign(paste0("results.", chrs[index]),
+            STR_detection(seqName = seqName, chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+                                 start.position = NA, end.position = NA, translated_regions=F, output_file = "",
+                                 species = species)) # start.position = 1, end.position = chr.lengths[index],
    }
-   else{
-     assign(paste("results.", chrs[index], sep = ""),
-            STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
-                                 start.position = start.position[index], end.position = end.position[index],
-                                 translated_regions=F, output_file="", species = species)) # start.position = 1, end.position = chr.lengths[index],
-   }
-
+  print(get(paste0("results.", chrs[index])))
   temp2 <- which(unlist(get(paste("results.", chrs[index], sep = ""))[[6]])>= nr.STRs)
   if(length(temp2)==0) {
     index_chr_no_str <- append(index_chr_no_str,FALSE) # add index of chr where no STR is present
@@ -92,13 +106,14 @@ STR_analysis = function(nr.STRs = 10, nr.mismatch = 0, chrs = "", STR = "A", len
   else{
     index_chr_no_str <- append(index_chr_no_str,TRUE)
   }
+
   ind[[index_str]] = temp2
   length.As[[index_str]] = unname(unlist(get(paste("results.", chrs[index], sep = ""))[[6]][temp2]))
   pos.As[[index_str]] = unname(unlist(get(paste("results.", chrs[index], sep = ""))[[7]][temp2]))
   nr_matches[[index_str]] = length(length.As[[index_str]])
   index_str = index_str + 1
  }
-
+ print(chrs)
 if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
   stop("Analysis aborted since no STRs were found in the regions!")
 }
@@ -111,14 +126,19 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
  #pos.chr = sapply(1:length(chrs), function(i) {
    which(dsb_map$chrom == as.character(chrs[i]))
    })
+
  if(length(length_chr) == 1) {
    pos.chr <- list(c(pos.chr))
  }
+
  if (is.data.frame(pos.chr) == TRUE | is.matrix(pos.chr) == TRUE){
    pos.chr <- lapply(apply(pos.chr, 2, list), unlist)
  }
+ print("after if(dataframe)")
+ print(pos.chr)
  start.dsb.int    = lapply(1:length(pos.chr), function(j) {dsb_map[pos.chr[[j]],2]})
  end.dsb.int      = lapply(1:length(pos.chr), function(j) {dsb_map[pos.chr[[j]],3]})
+
 #### For being within it has to be larger than the start minus 500bp and smaller than the end position plus 500bp. ####
 #### The greyzone is restructured in 5 segments of length 2 kb increasing in the distance to the hotspot ####
 #### Moreover it is not allowed to contain a hotspot ####
@@ -128,6 +148,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
      })
    })
  Sys.sleep(0.2)
+
   for(len.grey in 2:length(lens.grey)) {
     assign(paste("greyzone",lens.grey[len.grey-1]/1000,lens.grey[len.grey]/1000,sep="_"), lapply(1:length(pos.chr), function(j) {
       !within[[j]] & sapply(1:length(ind[[j]]), function(i) {
@@ -138,6 +159,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
 
 
  }## end lens.grey
+
  message("")
  flush.console()
 
@@ -179,7 +201,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
   output <- list("Sequence Name" = seq_name_list,
                   "Reverse Complement" = reverse.comp, "Number of allowed Mismatches" = nr.mismatch, "Minimum Length" = nr.STRs,
                   "Number of Matches" = nr_matches, "Length of STR stretch in bp" = length.As, "Start positions" = pos.As, "Zone" = code.zone)
-
+  print(output)
   output <- lapply(output,FUN=function(x) {
    if(length(x) == length(unlist(seq_name_list)) & length(x) != 1){
      names(x) <- unlist(seq_name_list)

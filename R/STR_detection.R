@@ -29,10 +29,14 @@
 #' Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
 #' @seealso \code{\link{getflank2}}, \code{\link{STR_analysis}}
 #' @examples
+#' data(chr6_1580213_1582559)
+#' STR_detection(seqName = chr6_1580213_1582559, chrs = "chr6", start.position = 1580213,
+#' end.position = 1582559, nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
+#' species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE, output_file = "")
+#' \donttest{
 #' STR_detection(seqName = "", chrs = "chr22", start.position = 30000000, end.position = 31000000,
 #' nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
 #' species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE, output_file = "")
-#' \donttest{
 #' # If you want to use the function with a different reference genome
 #' # make your choice and install it before:
 #' BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
@@ -55,7 +59,11 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
   start.position = max(start.position, 1, na.rm = T)
   df <- ""
   if(seqName != "") {
-    sequence = Biostrings::readDNAStringSet(seqName, format = "fasta")
+    if(class(seqName) == "DNAStringSet") {
+      sequence = seqName
+    } else {
+      sequence = Biostrings::readDNAStringSet(seqName, format = "fasta")
+    }
   }
   else if(bed_file != ""){
     bed <- read.table(bed_file,header = FALSE, sep="\t",stringsAsFactors=FALSE, quote="")
@@ -98,11 +106,13 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
       else{
         name <- paste0(chrs[s], ":", formatC(start.position[s], format = "fg"), "-", formatC(end.position[s], format = "fg"))
       }
+    } else {
+      name = names(seqName)
     }
     if(seqName == "") {
       message(paste0(name, " of ", toString(species), " is under study!"),"\r",appendLF=TRUE)
     } else {
-        message(paste0(seqName, " is under study!"),"\r",appendLF=TRUE)
+        message(paste0(name, " is under study!"),"\r",appendLF=TRUE)
     }
 
     tp = unlist(strsplit(Biostrings::toString(sequence[s,]), split  ="")) == STR
@@ -144,8 +154,8 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
     }
     matches = sapply(1:length(start.pos), function(k) {
     # if STR ends at last position of interval
-
-    if ((start.pos[k]+nr.STRs.c[k]-1) >= width(sequence[s,])){
+    print(sequence)
+    if ((start.pos[k]+nr.STRs.c[k]-1) >= Biostrings::width(sequence[s,])){
       end_pos_STR <- width(sequence[s,]) # end of interval is end of STR
     }
     else{
@@ -217,6 +227,7 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
     output <- list("Sequence Name" = seq_name_list, "Reverse complement" = reverse.comp, "Number of allowed mismatches" = nr.mismatch, "Minimum length" = min.nr, "Number of matches" = nr.matches,
                    "Length of STR stretch in bp" = nr.STRs.c_list, "Start positions" = start.position_list, "Matched segments" = matches_list)
   }
+
     output <- lapply(output,FUN=function(x) {
     if(length(x) == length(unlist(seq_name_list)) & length(x) != 1){
       names(x) <- unlist(seq_name_list)

@@ -24,13 +24,12 @@
 #' data(chr6_1580213_1582559)
 #' motif_detection(seqName = chr6_1580213_1582559, chrs="",
 #' start.position = NA, end.position = NA, motif = "CCNCCNTNNCCNC",
-#' nr.mismatch = 1, reverse.comp = FALSE, print.status = TRUE)
+#' nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
 #'
+#' \donttest{
 #' motif_detection(seqName = "", chrs = "chr6",
 #' start.position = 1580213, end.position = 1582559,
 #' motif = "CCNCCNTNNCCNC", nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
-#'
-#' \donttest{
 #' # If you want to use the function with a different reference genome
 #' # make your choice and install it before:
 #' BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")

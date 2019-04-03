@@ -4,13 +4,16 @@
 \alias{STR_analysis}
 \title{Analysis of short tandem repeats (STRs) in a given region of any reference genome}
 \usage{
-STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "", STR = "A",
-  lens.grey = 0:5 * 1000, start.position = NA, end.position = NA,
-  reverse.comp = FALSE, bed_file = "", pos_matrix = "",
-  output_file = "", species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens,
+STR_analysis(seqName = "", nr.STRs = 10, nr.mismatch = 0,
+  chrs = "", STR = "A", lens.grey = 0:5 * 1000,
+  start.position = NA, end.position = NA, reverse.comp = FALSE,
+  bed_file = "", pos_matrix = "", output_file = "",
+  species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens,
   dsb_map = STRAH::dsb_map)
 }
 \arguments{
+\item{seqName}{A character string which is the name of the given sequence file under study. Can also be set to "" in order to analyze a defined sequence from any reference genome such as the package BSgenome.Hsapiens.UCSC.hg19 for humans.}
+
 \item{nr.STRs}{An integer value reflecting the minimum length of STRs to be searched for.}
 
 \item{nr.mismatch}{An integer value reflecting the allowed number of mismatches of the short tandem repeats. By default it set to 0.}
@@ -54,13 +57,17 @@ A BED file with the chromosomes, start, and end position of the STRs, length of 
 This function separates detected short tandem repeats (STRs) into different zones. These zones are either the hotspot zone defined by the double strand break maps of Pratto et al. (2014) or adjacent flanking zones (greyzones) left and right of the hotspots of user specified lengths. The parameters of the regions under study can be directly given in the function arguments or read in via either a BED-file or a position matrix.
 }
 \examples{
-STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
+data(chr6_1580213_1582559)
+STR_analysis(seqName = chr6_1580213_1582559, nr.STRs = 10, nr.mismatch = 0, chrs = "chr6",
+STR = "A", #' lens.grey = 0:1*100, start.position = 1580213, end.position = 1582559,
+reverse.comp = FALSE, bed_file = "", pos_matrix = "", output_file = "",
+species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
+\donttest{
+STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:1*100,
 start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
 bed_file = "", pos_matrix = "", output_file = "",
 species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
-
-\donttest{
-#' # If you want to use the function with a different reference genome
+# If you want to use the function with a different reference genome
 # make your choice and install it before:
 BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
 library(BSgenome.Ptroglodytes.UCSC.panTro5)
@@ -73,7 +80,7 @@ dsb_map = STRAH::dsb_map_chimp_full)
 \references{
 Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
-Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
+   Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 }
 \seealso{
 \code{\link{getflank2}}, \code{\link{STR_detection}}
