@@ -22,7 +22,7 @@ The DNA-sequence of the region under study (defined by the chromosome, start pos
 This function extracts a specified region of the human genome with corresponding start and end position of the region under study.
 }
 \examples{
-getflank2(BSgenome.Hsapiens.UCSC.hg19::Hsapiens, "chr1", 100000, 100010)
+getflank2(BSgenome.Hsapiens.UCSC.hg19::Hsapiens, "chr1", 100000, 100006)
 }
 \references{
 Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841

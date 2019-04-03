@@ -12,6 +12,7 @@
 #' \item{9-15, (AA1,AA2,AB1,AB2,AC)_hotspots}{Dummy coding whether these positions (start/end) define a hotspot of given PRDM9-type}
 #' }
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
+#'
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
 #'
 #' @seealso \code{\link{STR_analysis}}, \code{\link{STR_detection}}

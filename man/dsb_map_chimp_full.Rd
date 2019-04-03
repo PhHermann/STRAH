@@ -19,7 +19,9 @@ The translation was performed using liftOver of the UCSC Genome Browser from the
 }
 \references{
 Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
+
 Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
+
 Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 }
 \seealso{

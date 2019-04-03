@@ -10,10 +10,9 @@
 #' @seealso \code{\link{STR_analysis}}
 #' @keywords datasets, array, list, methods, univar
 #' @examples
-#' getflank2(BSgenome.Hsapiens.UCSC.hg19::Hsapiens, "chr1", 100000, 100010)
+#' getflank2(BSgenome.Hsapiens.UCSC.hg19::Hsapiens, "chr1", 100000, 100006)
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 #' @export
 getflank2 <- function(species, chrs, start.position, end.position) {
-  rightflank <- Biostrings::getSeq(species, chrs, start.position, end.position)
-  temp = paste(rightflank,sep="")
+  temp <- paste(Biostrings::getSeq(species, chrs, start.position, end.position), sep="")
 }

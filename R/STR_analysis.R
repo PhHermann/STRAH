@@ -30,8 +30,10 @@
 #' Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
 #' @seealso \code{\link{getflank2}}, \code{\link{STR_detection}}
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
+#'
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
-#'    Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
+#'
+#' Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 #' @examples
 #' data(chr6_1580213_1582559)
 #' STR_analysis(seqName = chr6_1580213_1582559, nr.STRs = 10, nr.mismatch = 0, chrs = "chr6",
@@ -81,19 +83,19 @@ STR_analysis = function(seqName="", nr.STRs = 10, nr.mismatch = 0, chrs = "", ST
    if(bed_file != "" || is.data.frame(pos_matrix) == T || is.matrix(pos_matrix) == T){
      print("i am in if1 ")
      assign(paste0("results.", chrs[index]),
-            STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+            STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
                           start.position = start.position[index], end.position = end.position[index],
                           translated_regions=F, output_file="", species = species)) # start.position = 1, end.position = chr.lengths[index],
    } else if(seqName == "") {
      print("I am in if2")
     assign(paste0("results.", chrs[index]),
-            STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+           STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
                                  start.position = start.position, end.position = end.position,
                                  translated_regions=F, output_file = "", species = species)) # start.position = 1, end.position = chr.lengths[index],
   } else {
      print("i am in if3")
     assign(paste0("results.", chrs[index]),
-            STR_detection(seqName = seqName, chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+           STRAH::STR_detection(seqName = seqName, chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
                                  start.position = NA, end.position = NA, translated_regions=F, output_file = "",
                                  species = species)) # start.position = 1, end.position = chr.lengths[index],
    }

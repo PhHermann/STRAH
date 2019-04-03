@@ -20,6 +20,7 @@ A dataset containing the PRDM9-A type hotspots of Pratto et al. 2014.
 }
 \references{
 Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
+
 Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
 }
 \seealso{
