@@ -17,7 +17,8 @@ Description: Searches for short tandem repeats (STR) in a specified region of an
 Imports: Biostrings (>= 2.38.4), 
     BSgenome,
     BSgenome.Hsapiens.UCSC.hg19,
-    BiocManager
+    BiocManager, 
+    methods
 Suggests: BSgenome.Ptroglodytes.UCSC.panTro5
 Depends: R (>= 2.10)
 License: MIT + file LICENSE

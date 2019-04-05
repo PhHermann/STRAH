@@ -22,35 +22,35 @@
 #' @keywords datasets, array, list, methods, univar
 #' @examples
 #' data(chr6_1580213_1582559)
-#' motif_detection(seqName = chr6_1580213_1582559, chrs="",
-#' start.position = NA, end.position = NA, motif = "CCNCCNTNNCCNC",
-#' nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
+#' motif_detection(seqName = chr6_1580213_1582559, start.position = NA, end.position = NA,
+#' motif = "CCNCCNTNNCCNC", nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
 #'
 #' \donttest{
-#' motif_detection(seqName = "", chrs = "chr6",
-#' start.position = 1580213, end.position = 1582559,
+#' motif_detection(chrs = "chr6", start.position = 1580213, end.position = 1582559,
 #' motif = "CCNCCNTNNCCNC", nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
 #' # If you want to use the function with a different reference genome
 #' # make your choice and install it before:
-#' BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
-#' library(BSgenome.Ptroglodytes.UCSC.panTro5)
-#' motif_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660,
-#' motif = "A", nr.mismatch = 0, reverse.comp = FALSE,
-#' print.status = FALSE, species = BSgenome.Ptroglodytes.UCSC.panTro5)
+#' if(requireNamespace("BSgenome.Ptroglodytes.UCSC.panTro5")) {
+#' motif_detection(chrs = "chr1", start.position =222339618, end.position = 222339660,
+#' motif = "A", nr.mismatch = 0, reverse.comp = FALSE, print.status = FALSE,
+#' species = BSgenome.Ptroglodytes.UCSC.panTro5::BSgenome.Ptroglodytes.UCSC.panTro5)
+#' }
 #' }
 #' @seealso \code{\link{getflank2}}
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 #' @export
-motif_detection = function(seqName, chrs, start.position, end.position, motif, nr.mismatch = 0, reverse.comp = F, print.status = T, species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens) {
-
-  if(class(seqName) != "DNAStringSet") {
-    if(seqName != "") {
-    temp = Biostrings::readDNAStringSet(seqName, format = "fasta")
-    } else {
+motif_detection = function(seqName, chrs, start.position, end.position, motif, nr.mismatch = 0, reverse.comp = F,
+                           print.status = T, species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens) {
+  if(missing(seqName) & missing(chrs)) {stop("Please provide either seqName or chrs!")}
+  if(!missing(seqName)) {
+    if(!is(seqName, "DNAStringSet")) {
+      temp = Biostrings::readDNAStringSet(seqName, format = "fasta")
+    } else {temp = seqName}
+  } else {
     temp = Biostrings::DNAStringSet(getflank2(species = species, chrs = chrs, start.position = start.position, end.position = end.position))
     seqName = paste(chrs, start.position, end.position, sep = "_")
-    }
-  } else{temp = seqName}
+
+  }
   if(reverse.comp) {temp = Biostrings::reverseComplement(temp); motif = Biostrings::toString(Biostrings::reverseComplement(Biostrings::DNAString(motif)))}
   pos.n = which(unlist(strsplit(motif, "")) != "N")
   checks = start.pos = motifs = c()

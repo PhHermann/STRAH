@@ -4,11 +4,10 @@
 \alias{STR_detection}
 \title{Detection of short tandem repeats (STRs) in a given region of any reference genome}
 \usage{
-STR_detection(seqName = "", chrs = "", start.position = NA,
-  end.position = NA, bed_file = "", pos_matrix = "", nr.STRs,
-  nr.mismatch = 0, reverse.comp = F, STR = "A",
-  species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens,
-  translated_regions = F, output_file = "")
+STR_detection(seqName, chrs, start.position = NA, end.position = NA,
+  bed_file, pos_matrix, nr.STRs, nr.mismatch = 0, reverse.comp = F,
+  STR = "A", species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens,
+  translated_regions = F, output_file)
 }
 \arguments{
 \item{seqName}{A character string which is the name of the given sequence file under study. Can also be set to "" in order to analyze a defined sequence from any reference genome such as the package BSgenome.Hsapiens.UCSC.hg19 for humans.}
@@ -58,18 +57,18 @@ This function searches for short tandem repeats (STRs) in a specified region of 
 data(chr6_1580213_1582559)
 STR_detection(seqName = chr6_1580213_1582559, chrs = "chr6", start.position = 1580213,
 end.position = 1582559, nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
-species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE, output_file = "")
+species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE)
 \donttest{
-STR_detection(seqName = "", chrs = "chr22", start.position = 30000000, end.position = 31000000,
+STR_detection(chrs = "chr22", start.position = 30000000, end.position = 31000000,
 nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
-species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE, output_file = "")
+species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE)
 # If you want to use the function with a different reference genome
 # make your choice and install it before:
-BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
-library(BSgenome.Ptroglodytes.UCSC.panTro5)
-STR_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660,
+if(requireNamespace("BSgenome.Ptroglodytes.UCSC.panTro5")) {
+STR_detection(chrs = "chr1", start.position =222339618, end.position = 222339660,
 nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
-species = BSgenome.Ptroglodytes.UCSC.panTro5)
+species = BSgenome.Ptroglodytes.UCSC.panTro5::BSgenome.Ptroglodytes.UCSC.panTro5)
+}
 }
 }
 \references{

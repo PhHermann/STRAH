@@ -42,21 +42,19 @@ This function searches for a given "DNA-motif" in a DNA-sequence. The argument \
 }
 \examples{
 data(chr6_1580213_1582559)
-motif_detection(seqName = chr6_1580213_1582559, chrs="",
-start.position = NA, end.position = NA, motif = "CCNCCNTNNCCNC",
-nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
+motif_detection(seqName = chr6_1580213_1582559, start.position = NA, end.position = NA,
+motif = "CCNCCNTNNCCNC", nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
 
 \donttest{
-motif_detection(seqName = "", chrs = "chr6",
-start.position = 1580213, end.position = 1582559,
+motif_detection(chrs = "chr6", start.position = 1580213, end.position = 1582559,
 motif = "CCNCCNTNNCCNC", nr.mismatch = 1, reverse.comp = FALSE, print.status = FALSE)
 # If you want to use the function with a different reference genome
 # make your choice and install it before:
-BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
-library(BSgenome.Ptroglodytes.UCSC.panTro5)
-motif_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660,
-motif = "A", nr.mismatch = 0, reverse.comp = FALSE,
-print.status = FALSE, species = BSgenome.Ptroglodytes.UCSC.panTro5)
+if(requireNamespace("BSgenome.Ptroglodytes.UCSC.panTro5")) {
+motif_detection(chrs = "chr1", start.position =222339618, end.position = 222339660,
+motif = "A", nr.mismatch = 0, reverse.comp = FALSE, print.status = FALSE,
+species = BSgenome.Ptroglodytes.UCSC.panTro5::BSgenome.Ptroglodytes.UCSC.panTro5)
+}
 }
 }
 \references{

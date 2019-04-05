@@ -37,69 +37,66 @@
 #' @examples
 #' data(chr6_1580213_1582559)
 #' STR_analysis(seqName = chr6_1580213_1582559, nr.STRs = 10, nr.mismatch = 0, chrs = "chr6",
-#' STR = "A", #' lens.grey = 0:1*100, start.position = 1580213, end.position = 1582559,
-#' reverse.comp = FALSE, bed_file = "", pos_matrix = "", output_file = "",
+#' STR = "A", lens.grey = 0:1*100, start.position = 1580213, end.position = 1582559,
+#' reverse.comp = FALSE,
 #' species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
 #' \donttest{
 #' STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:1*100,
 #' start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
-#' bed_file = "", pos_matrix = "", output_file = "",
 #' species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
 #' # If you want to use the function with a different reference genome
 #' # make your choice and install it before:
-#' BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
-#' library(BSgenome.Ptroglodytes.UCSC.panTro5)
+#' if(requireNamespace("BSgenome.Ptroglodytes.UCSC.panTro5")) {
 #' STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
-#' start.position = 30000000, end.position = 31000000, reverse.comp = FALSE, bed_file = "",
-#' pos_matrix = "", output_file = "", species = BSgenome.Ptroglodytes.UCSC.panTro5,
+#' start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
+#' species = BSgenome.Ptroglodytes.UCSC.panTro5::BSgenome.Ptroglodytes.UCSC.panTro5,
 #' dsb_map = STRAH::dsb_map_chimp_full)
+#' }
 #' }
 #' @keywords datasets, array, list, methods, univar
 #' @export
 #'
-STR_analysis = function(seqName="", nr.STRs = 10, nr.mismatch = 0, chrs = "", STR = "A", lens.grey = 0:5*1000, start.position = NA,
-                        end.position = NA, reverse.comp = FALSE, bed_file = "", pos_matrix = "", output_file="",
+STR_analysis = function(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A", lens.grey = 0:5*1000, start.position = NA,
+                        end.position = NA, reverse.comp = FALSE, bed_file, pos_matrix, output_file,
                         species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map) {
- if(sum(c(seqName != "", bed_file != "", pos_matrix != "")) >= 2) {stop("Please only provide one of the parameters seqName, chrs, bed_file, or pos_matrix!")}
- if(class(seqName) == "DNAStringSet" & chrs == "") {stop("Please also provide chrs when you use a DNAStringSet-object!")}
+ if(all(missing(seqName), missing(chrs), missing(bed_file), missing(pos_matrix))) {stop("Please only provide one of the parameters seqName, chrs, bed_file, or pos_matrix!")}
+ if(!missing(seqName) & missing(chrs)) {stop("Please also provide chrs when you use a DNAStringSet-object!")}
  ind = length.As = pos.As = seq_name_list = nr_matches = original_region_list = list()
  df <- ""
- if(bed_file != ""){
+ if(!missing(bed_file)){
    bed <- read.table(bed_file,header = FALSE, sep="\t",stringsAsFactors=FALSE, quote="")
    chrs <- bed[,1]
    start.position <- bed[,2] +1
    end.position <- bed[,3]
  }
- else if(is.data.frame(pos_matrix) | is.matrix(pos_matrix)){
+ else if(!missing(pos_matrix)) {
+   # if((is.data.frame(pos_matrix) | is.matrix(pos_matrix))){
    chrs <- pos_matrix[,1]
    start.position <- pos_matrix[,2]
    end.position <- pos_matrix[,3]
+   # }
  }
 
  index_chr_no_str <- vector(mode="logical", length=0)
  index_str = 1
 
  for(index in 1:length(chrs)) {
-   if(bed_file != "" || is.data.frame(pos_matrix) == T || is.matrix(pos_matrix) == T){
-     print("i am in if1 ")
+   if(any(!missing(bed_file), !missing(pos_matrix))){
      assign(paste0("results.", chrs[index]),
             STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
                           start.position = start.position[index], end.position = end.position[index],
-                          translated_regions=F, output_file="", species = species)) # start.position = 1, end.position = chr.lengths[index],
-   } else if(seqName == "") {
-     print("I am in if2")
+                          translated_regions=F, output_file = output_file, species = species)) # start.position = 1, end.position = chr.lengths[index],
+   } else if(missing(seqName)) {
     assign(paste0("results.", chrs[index]),
            STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
                                  start.position = start.position, end.position = end.position,
-                                 translated_regions=F, output_file = "", species = species)) # start.position = 1, end.position = chr.lengths[index],
+                                 translated_regions=F, output_file = output_file, species = species)) # start.position = 1, end.position = chr.lengths[index],
   } else {
-     print("i am in if3")
     assign(paste0("results.", chrs[index]),
            STRAH::STR_detection(seqName = seqName, chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
-                                 start.position = NA, end.position = NA, translated_regions=F, output_file = "",
+                                 start.position = NA, end.position = NA, translated_regions=F, output_file = output_file,
                                  species = species)) # start.position = 1, end.position = chr.lengths[index],
    }
-  print(get(paste0("results.", chrs[index])))
   temp2 <- which(unlist(get(paste("results.", chrs[index], sep = ""))[[6]])>= nr.STRs)
   if(length(temp2)==0) {
     index_chr_no_str <- append(index_chr_no_str,FALSE) # add index of chr where no STR is present
@@ -115,7 +112,6 @@ STR_analysis = function(seqName="", nr.STRs = 10, nr.mismatch = 0, chrs = "", ST
   nr_matches[[index_str]] = length(length.As[[index_str]])
   index_str = index_str + 1
  }
- print(chrs)
 if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
   stop("Analysis aborted since no STRs were found in the regions!")
 }
@@ -136,8 +132,6 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
  if (is.data.frame(pos.chr) == TRUE | is.matrix(pos.chr) == TRUE){
    pos.chr <- lapply(apply(pos.chr, 2, list), unlist)
  }
- print("after if(dataframe)")
- print(pos.chr)
  start.dsb.int    = lapply(1:length(pos.chr), function(j) {dsb_map[pos.chr[[j]],2]})
  end.dsb.int      = lapply(1:length(pos.chr), function(j) {dsb_map[pos.chr[[j]],3]})
 
@@ -179,7 +173,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
 
  counter = 1
  for (s in length_chr) {
-   if(bed_file == "" && is.data.frame(pos_matrix) == FALSE && is.matrix(pos_matrix) == FALSE){
+   if(missing(bed_file) && missing(pos_matrix)){
      name_file <- paste0(chrs[s], ":", start.position, "-", end.position)
   }
   else{
@@ -189,7 +183,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
   header <- c("chr", "start_STR", "end_STR", "len_STR", "zones","chr_start_stop")
 
 
-  if(output_file != ""){
+  if(!missing(output_file)){
     if (is.data.frame(df) == FALSE){
       write.table(rbind(header), paste0(output_file, ".bed"), sep = "\t", col.names = FALSE, row.names = FALSE, quote=FALSE)
     }
@@ -203,7 +197,6 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
   output <- list("Sequence Name" = seq_name_list,
                   "Reverse Complement" = reverse.comp, "Number of allowed Mismatches" = nr.mismatch, "Minimum Length" = nr.STRs,
                   "Number of Matches" = nr_matches, "Length of STR stretch in bp" = length.As, "Start positions" = pos.As, "Zone" = code.zone)
-  print(output)
   output <- lapply(output,FUN=function(x) {
    if(length(x) == length(unlist(seq_name_list)) & length(x) != 1){
      names(x) <- unlist(seq_name_list)
