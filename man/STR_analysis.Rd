@@ -4,10 +4,9 @@
 \alias{STR_analysis}
 \title{Analysis of short tandem repeats (STRs) in a given region of any reference genome}
 \usage{
-STR_analysis(seqName = "", nr.STRs = 10, nr.mismatch = 0,
-  chrs = "", STR = "A", lens.grey = 0:5 * 1000,
-  start.position = NA, end.position = NA, reverse.comp = FALSE,
-  bed_file = "", pos_matrix = "", output_file = "",
+STR_analysis(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A",
+  lens.grey = 0:5 * 1000, start.position = NA, end.position = NA,
+  reverse.comp = FALSE, bed_file, pos_matrix, output_file,
   species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens,
   dsb_map = STRAH::dsb_map)
 }
@@ -59,22 +58,21 @@ This function separates detected short tandem repeats (STRs) into different zone
 \examples{
 data(chr6_1580213_1582559)
 STR_analysis(seqName = chr6_1580213_1582559, nr.STRs = 10, nr.mismatch = 0, chrs = "chr6",
-STR = "A", #' lens.grey = 0:1*100, start.position = 1580213, end.position = 1582559,
-reverse.comp = FALSE, bed_file = "", pos_matrix = "", output_file = "",
+STR = "A", lens.grey = 0:1*100, start.position = 1580213, end.position = 1582559,
+reverse.comp = FALSE,
 species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
 \donttest{
 STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:1*100,
 start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
-bed_file = "", pos_matrix = "", output_file = "",
 species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map)
 # If you want to use the function with a different reference genome
 # make your choice and install it before:
-BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
-library(BSgenome.Ptroglodytes.UCSC.panTro5)
+if(requireNamespace("BSgenome.Ptroglodytes.UCSC.panTro5")) {
 STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
-start.position = 30000000, end.position = 31000000, reverse.comp = FALSE, bed_file = "",
-pos_matrix = "", output_file = "", species = BSgenome.Ptroglodytes.UCSC.panTro5,
+start.position = 30000000, end.position = 31000000, reverse.comp = FALSE,
+species = BSgenome.Ptroglodytes.UCSC.panTro5::BSgenome.Ptroglodytes.UCSC.panTro5,
 dsb_map = STRAH::dsb_map_chimp_full)
+}
 }
 }
 \references{

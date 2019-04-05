@@ -32,18 +32,18 @@
 #' data(chr6_1580213_1582559)
 #' STR_detection(seqName = chr6_1580213_1582559, chrs = "chr6", start.position = 1580213,
 #' end.position = 1582559, nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
-#' species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE, output_file = "")
+#' species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE)
 #' \donttest{
-#' STR_detection(seqName = "", chrs = "chr22", start.position = 30000000, end.position = 31000000,
+#' STR_detection(chrs = "chr22", start.position = 30000000, end.position = 31000000,
 #' nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
-#' species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE, output_file = "")
+#' species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=FALSE)
 #' # If you want to use the function with a different reference genome
 #' # make your choice and install it before:
-#' BiocManager::install("BSgenome.Ptroglodytes.UCSC.panTro5")
-#' library(BSgenome.Ptroglodytes.UCSC.panTro5)
-#' STR_detection(seqName = "", chrs = "chr1", start.position =222339618, end.position = 222339660,
+#' if(requireNamespace("BSgenome.Ptroglodytes.UCSC.panTro5")) {
+#' STR_detection(chrs = "chr1", start.position =222339618, end.position = 222339660,
 #' nr.STRs = 10, nr.mismatch = 0, reverse.comp = FALSE, STR = "A",
-#' species = BSgenome.Ptroglodytes.UCSC.panTro5)
+#' species = BSgenome.Ptroglodytes.UCSC.panTro5::BSgenome.Ptroglodytes.UCSC.panTro5)
+#' }
 #' }
 #' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
 #'
@@ -54,20 +54,20 @@
 #' @keywords datasets, array, list, methods, univar
 #' @export
 
-STR_detection = function(seqName="", chrs = "", start.position = NA, end.position = NA, bed_file = "",
-                         pos_matrix = "", nr.STRs,  nr.mismatch = 0, reverse.comp = F, STR = "A",
-                         species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=F, output_file = "") {
+STR_detection = function(seqName, chrs, start.position = NA, end.position = NA, bed_file,
+                         pos_matrix, nr.STRs,  nr.mismatch = 0, reverse.comp = F, STR = "A",
+                         species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=F, output_file) {
   min.nr = nr.STRs
   start.position = max(start.position, 1, na.rm = T)
   df <- ""
-  if(seqName != "") {
-    if(class(seqName) == "DNAStringSet") {
+  if(!missing(seqName)) {
+    if(is(seqName, "DNAStringSet")) {
       sequence = seqName
     } else {
       sequence = Biostrings::readDNAStringSet(seqName, format = "fasta")
     }
   }
-  else if(bed_file != ""){
+  else if(!missing(bed_file)){
     bed <- read.table(bed_file,header = FALSE, sep="\t",stringsAsFactors=FALSE, quote="")
     chrs <- bed[,1]
     start.position <- bed[,2] + 1
@@ -77,7 +77,7 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
     }
     sequence <- Biostrings::DNAStringSet(getflank2(species = species, chrs = chrs, start.position = start.position, end.position = end.position))
   }
-  else if(is.data.frame(pos_matrix) | is.matrix(pos_matrix)){
+  else if(!missing(pos_matrix)){
     chrs <- pos_matrix[,1]
     start.position <- pos_matrix[,2]
     end.position <- pos_matrix[,3]
@@ -101,8 +101,8 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
 
   for (s in 1:(length(sequence))){
     Sys.sleep(0.2)
-    if(seqName == "") {
-      if(bed_file == "" && is.data.frame(pos_matrix) == FALSE && is.matrix(pos_matrix) == FALSE){
+    if(missing(seqName)) {
+      if(missing(bed_file) && missing(pos_matrix)){
         name <- paste0(chrs[s], ":", formatC(start.position[s], format = "fg"), "-", formatC(end.position[s], format = "fg"))
       }
       else{
@@ -111,7 +111,7 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
     } else {
       name = names(seqName)
     }
-    if(seqName == "") {
+    if(missing(seqName)) {
       message(paste0(name, " of ", toString(species), " is under study!"),"\r",appendLF=TRUE)
     } else {
         message(paste0(name, " is under study!"),"\r",appendLF=TRUE)
@@ -207,7 +207,7 @@ STR_detection = function(seqName="", chrs = "", start.position = NA, end.positio
     }
 
     flush.console()
-    if(output_file != ""){
+    if(!missing(output_file)){
       if (is.data.frame(df) == FALSE){
         write.table(rbind(header),paste0(output_file, ".bed"), sep = "\t", col.names = FALSE, row.names = FALSE, quote=FALSE)
       }
