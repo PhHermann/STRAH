@@ -53,7 +53,7 @@
 #' dsb_map = STRAH::dsb_map_chimp_full)
 #' }
 #' }
-#' @keywords datasets, array, list, methods, univar
+#' @keywords datasets array list methods univar
 #' @export
 #'
 STR_analysis = function(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A", lens.grey = 0:5*1000, start.position = NA,
@@ -203,9 +203,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
    }
  return(x)
  })
-
- return(output)
  closeAllConnections()
-
+ return(output)
   }
 

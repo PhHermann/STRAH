@@ -51,7 +51,7 @@
 #'
 #' Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioinform., 14, 144-161.
 #'
-#' @keywords datasets, array, list, methods, univar
+#' @keywords datasets array list methods univar
 #' @export
 
 STR_detection = function(seqName, chrs, start.position = NA, end.position = NA, bed_file,
@@ -236,8 +236,7 @@ STR_detection = function(seqName, chrs, start.position = NA, end.position = NA, 
     }
     return(x)
   })
-
-  return(output)
   closeAllConnections()
+  return(output)
   }
 

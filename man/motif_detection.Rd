@@ -67,8 +67,8 @@ Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influence
 Philipp Hermann, \email{philipp.hermann@jku.at}, Monika Heinzl, \email{monika.heinzl@edumail.at}
 Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
 }
-\keyword{array,}
-\keyword{datasets,}
-\keyword{list,}
-\keyword{methods,}
+\keyword{array}
+\keyword{datasets}
+\keyword{list}
+\keyword{methods}
 \keyword{univar}

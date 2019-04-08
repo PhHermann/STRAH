@@ -19,7 +19,7 @@
 #' \item{Start Positions of Matches}{The start positions of the found DNA-motifs}
 #' \item{Number of allowed Mismatches}{The number of allowed mismatches when searching for the DNA-motif}
 #' \item{Matched Segments}{The list of the segments containing the DNA-motif}
-#' @keywords datasets, array, list, methods, univar
+#' @keywords datasets array list methods univar
 #' @examples
 #' data(chr6_1580213_1582559)
 #' motif_detection(seqName = chr6_1580213_1582559, start.position = NA, end.position = NA,

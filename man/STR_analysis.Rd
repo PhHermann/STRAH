@@ -89,8 +89,8 @@ Kuhn RM, et al. (2013) The UCSC genome browser and associated tools, Brief. Bioi
 Philipp Hermann, \email{philipp.hermann@jku.at}, Monika Heinzl, \email{monika.heinzl@edumail.at}
 Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
 }
-\keyword{array,}
-\keyword{datasets,}
-\keyword{list,}
-\keyword{methods,}
+\keyword{array}
+\keyword{datasets}
+\keyword{list}
+\keyword{methods}
 \keyword{univar}
