@@ -9,6 +9,7 @@
 #' @param reverse.comp A logical value by default \code{FALSE}. If set to \code{TRUE} then the reverse complement of the sequence is analyzed.
 #' @param STR A character string for the nucleotide to be searched for. By default one searches for poly-As, hence set to "A".
 #' @param lens.grey An integer value which is by default a vector of 6 integer values. These values represent the greyzones to be studied left and right from the hotspot regions.
+#' @param addToHs An integer value which is by default 0. If set to a positive value the left and right border or the hotspot zones are shifted by this value (enlarged hotspot zone).
 #' @param bed_file A bed file containing the chromosomes, start, and end positions of the region(s) that should be analyzed.
 #' @param pos_matrix A matrix or dataframe containing the chromosomes, start, and end positions of the region(s) that should be analyzed.
 #' @param output_file The default is an empty string and does not save an output-file. The output will be saved if the parameter is changed to a user defined string excluding the extension (by default .bed).
@@ -56,7 +57,7 @@
 #' @keywords datasets array list methods univar
 #' @export
 #'
-STR_analysis = function(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A", lens.grey = 0:5*1000, start.position = NA,
+STR_analysis = function(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A", lens.grey = 0:5*1000, addToHs = 0, start.position = NA,
                         end.position = NA, reverse.comp = FALSE, bed_file, pos_matrix, output_file,
                         species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map) {
  if(all(missing(seqName), missing(chrs), missing(bed_file), missing(pos_matrix))) {stop("Please only provide one of the parameters seqName, chrs, bed_file, or pos_matrix!")}
@@ -135,12 +136,12 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
  start.dsb.int    = lapply(1:length(pos.chr), function(j) {dsb_map[pos.chr[[j]],2]})
  end.dsb.int      = lapply(1:length(pos.chr), function(j) {dsb_map[pos.chr[[j]],3]})
 
-#### For being within it has to be larger than the start minus 500bp and smaller than the end position plus 500bp. ####
+#### For being within it has to be larger than the start minus addToHs-bp and smaller than the end position plus addToHs-bp ####
 #### The greyzone is restructured in 5 segments of length 2 kb increasing in the distance to the hotspot ####
 #### Moreover it is not allowed to contain a hotspot ####
  within = lapply(1:length(pos.chr), function(j) {
    sapply(1:length(ind[[j]]), function(i) {
-     return(any(pos.As[[j]][i] >= (start.dsb.int[[j]]-500) & pos.As[[j]][i] <= (end.dsb.int[[j]]+500)))
+     return(any(pos.As[[j]][i] >= (start.dsb.int[[j]]-addToHs) & pos.As[[j]][i] <= (end.dsb.int[[j]]+addToHs)))
      })
    })
  Sys.sleep(0.2)
@@ -148,7 +149,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
   for(len.grey in 2:length(lens.grey)) {
     assign(paste("greyzone",lens.grey[len.grey-1]/1000,lens.grey[len.grey]/1000,sep="_"), lapply(1:length(pos.chr), function(j) {
       !within[[j]] & sapply(1:length(ind[[j]]), function(i) {
-        return(any((pos.As[[j]][i] < (start.dsb.int[[j]]-500-lens.grey[len.grey-1]) & (pos.As[[j]][i] >= (start.dsb.int[[j]]-500-lens.grey[len.grey]))) | (pos.As[[j]][i] <= (end.dsb.int[[j]]+500+lens.grey[len.grey-1]) & pos.As[[j]][i] > (end.dsb.int[[j]]+500+lens.grey[len.grey]))))
+        return(any((pos.As[[j]][i] < (start.dsb.int[[j]]-addToHs-lens.grey[len.grey-1]) & (pos.As[[j]][i] >= (start.dsb.int[[j]]-addToHs-lens.grey[len.grey]))) | (pos.As[[j]][i] <= (end.dsb.int[[j]]+addToHs+lens.grey[len.grey-1]) & pos.As[[j]][i] > (end.dsb.int[[j]]+addToHs+lens.grey[len.grey]))))
         })
       }))
     message(paste("Number of greyzones finished: ", len.grey-1, " (of ", length(lens.grey)-1, ")", sep = ""))

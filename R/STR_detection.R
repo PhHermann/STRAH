@@ -156,7 +156,7 @@ STR_detection = function(seqName, chrs, start.position = NA, end.position = NA, 
     }
     matches = sapply(1:length(start.pos), function(k) {
     # if STR ends at last position of interval
-    print(sequence)
+
     if ((start.pos[k]+nr.STRs.c[k]-1) >= Biostrings::width(sequence[s,])){
       end_pos_STR <- width(sequence[s,]) # end of interval is end of STR
     }
