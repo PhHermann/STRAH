@@ -37,7 +37,7 @@
 #' }
 #' }
 #' @seealso \code{\link{getflank2}}
-#' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
+#' @references Heissl, A., et al. (2019) The impact of poly-A microsatellite heterologies in meiotic recombination. Life Science Alliance, 2(2) e20190036, doi: https://doi.org/10.26508/lsa.201900364
 #' @export
 motif_detection = function(seqName, chrs, start.position, end.position, motif, nr.mismatch = 0, reverse.comp = F,
                            print.status = T, species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens) {

@@ -11,7 +11,7 @@
 #' \item{4-8, (AA1,AA2,AB1,AB2,AC)_strength}{Strength of the corresponding PRDM9-type hotspot. }
 #' \item{9-15, (AA1,AA2,AB1,AB2,AC)_hotspots}{Dummy coding whether these positions (start/end) define a hotspot of given PRDM9-type}
 #' }
-#' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
+#' @references Heissl, A., et al. (2019) The impact of poly-A microsatellite heterologies in meiotic recombination. Life Science Alliance, 2(2) e20190036, doi: https://doi.org/10.26508/lsa.201900364
 #'
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
 #'

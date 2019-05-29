@@ -30,7 +30,7 @@
 #' @author Philipp Hermann, \email{philipp.hermann@@jku.at}, Monika Heinzl, \email{monika.heinzl@@edumail.at}
 #' Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
 #' @seealso \code{\link{getflank2}}, \code{\link{STR_detection}}
-#' @references Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
+#' @references Heissl, A., et al. (2019) The impact of poly-A microsatellite heterologies in meiotic recombination. Life Science Alliance, 2(2) e20190036, doi: https://doi.org/10.26508/lsa.201900364
 #'
 #' Pratto, F., et al. (2014). Recombination initiation maps of individual human genomes. Science, 346(6211).
 #'

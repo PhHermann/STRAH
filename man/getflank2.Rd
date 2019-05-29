@@ -25,7 +25,7 @@ This function extracts a specified region of the human genome with corresponding
 getflank2(BSgenome.Hsapiens.UCSC.hg19::Hsapiens, "chr1", 1, 6)
 }
 \references{
-Heissl, A., et al. (2018) Length asymmetry and heterozygosity strongly influences the evolution of poly-A microsatellites at meiotic recombination hotspots. doi: https://doi.org/10.1101/431841
+Heissl, A., et al. (2019) The impact of poly-A microsatellite heterologies in meiotic recombination. Life Science Alliance, 2(2) e20190036, doi: https://doi.org/10.26508/lsa.201900364
 }
 \seealso{
 \code{\link{STR_analysis}}
