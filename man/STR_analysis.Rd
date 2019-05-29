@@ -5,9 +5,9 @@
 \title{Analysis of short tandem repeats (STRs) in a given region of any reference genome}
 \usage{
 STR_analysis(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A",
-  lens.grey = 0:5 * 1000, start.position = NA, end.position = NA,
-  reverse.comp = FALSE, bed_file, pos_matrix, output_file,
-  species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens,
+  lens.grey = 0:5 * 1000, addToHs = 0, start.position = NA,
+  end.position = NA, reverse.comp = FALSE, bed_file, pos_matrix,
+  output_file, species = BSgenome.Hsapiens.UCSC.hg19::Hsapiens,
   dsb_map = STRAH::dsb_map)
 }
 \arguments{
@@ -22,6 +22,8 @@ STR_analysis(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A",
 \item{STR}{A character string for the nucleotide to be searched for. By default one searches for poly-As, hence set to "A".}
 
 \item{lens.grey}{An integer value which is by default a vector of 6 integer values. These values represent the greyzones to be studied left and right from the hotspot regions.}
+
+\item{addToHs}{An integer value which is by default 0. If set to a positive value the left and right border or the hotspot zones are shifted by this value (enlarged hotspot zone).}
 
 \item{start.position}{An integer value reflecting the start position of the region to be analyzed. If set to \code{NA} the analysis starts from the beginning of the chromosome.}
 

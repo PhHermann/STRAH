@@ -38,7 +38,7 @@ After loading the package in the workspace one can use the main function *STR_an
 ```R
 require(STRAH)
 STR_analysis(nr.STRs = 10, nr.mismatch = 0, chrs = "chr22", STR = "A", lens.grey = 0:5*1000,
-  start.position = 30000000, end.position = 40000000, reverse.comp = FALSE, 
+  addToHs = 0, start.position = 30000000, end.position = 40000000, reverse.comp = FALSE, 
   bed_file = "", pos_matrix = "", output_file="")
 ```
 
@@ -54,6 +54,8 @@ A string parameter *chrs* reflects the chromosome to be analyzed. This parameter
 A string parameter *STR* equals to one of the nucleotides A,C,G,T and by default one searches for poly-As (set to "A"). 
 
 An integer parameter vector *lens.grey* contains the lengths of the regions to be analysed as outside regions next to the hotspot positions used. By default it is a vector of 6 integer values ending up with 5 regions of length 1kb, left and right from the hotspot regions. 
+
+An optional integer argument *addToHs* enables to enlarge the analyzed hotspot zones left and right by a positive integer value. 
 
 The two arguments *start.position* and *end.position* contain the corresponding positions on the chromosome and are indicated with positive integer values. Naturally, these positions must fit the start and end position of the given chromosome. If these are set to *NA*, then the function will analyze from the first position and until the last position of the chromosome. They can also be set separately to *NA* to search either from the starting position or until the end position if *start.position* or *end.position* are set to *NA*, respectively. If one wants to use several chromosomes with different start and end positions, we refer to the arguments *bed_file* or *pos_matrix*.
 
