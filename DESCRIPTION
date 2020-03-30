@@ -4,7 +4,7 @@ Title: Short Tandem Repeats Analysis of Hotspot Zones
 Version: 1.0.1
 Authors@R: c(person("Philipp", "Hermann", role = c("aut", "cre"), email = "philipp.hermann@jku.at", comment = c(ORCID = "https://orcid.org/0000-0003-4556-6297")),
              person("Monika", "Heinzl", role = "aut",   email = "monika.heinzl@edumail.at"), 
-             person("Mehdin", "Masinovic", role = "aut", email = "mehdin.masinovic2@gmail.com),
+             person("Mehdin", "Masinovic", role = "aut", email = "mehdin.masinovic2@gmail.com"),
              person("Angelika", "Heissl", role = "ctb"), 
              person("Irene", "Tiemann-Boege", role = "ctb", comment = c(ORCID = "https://orcid.org/0000-0002-3621-7020")), 
              person("Andreas", "Futschik", role = "ctb", comment = c(ORCID = "https://orcid.org/0000-0002-7980-0304")))
