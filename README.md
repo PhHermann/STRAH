@@ -4,8 +4,8 @@
 ### Authors (Requests)
 Please contact us in case of questions, comments, bug reports, etc...
 
-    Authors: Philipp Hermann, Monika Heinzl, Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
-    E-Mail: philipp.hermann@jku.at, monika.heinzl@edumail.at
+    Authors: Philipp Hermann, Monika Heinzl, Mehdin Masinovic, Angelika Heissl, Irene Tiemann-Boege, Andreas Futschik
+    E-Mail: philipp.hermann@jku.at, monika.heinzl@edumail.at, mehdin.masinovic2@gmail.com
 
 ## Dependencies & System Requirements
 This package makes use of functions of other R-packages. Here we provide the list of the used R-packages: 
