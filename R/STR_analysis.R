@@ -149,7 +149,7 @@ if(length(which(index_chr_no_str == FALSE)) == length(chrs)){
   for(len.grey in 2:length(lens.grey)) {
     assign(paste("greyzone",lens.grey[len.grey-1]/1000,lens.grey[len.grey]/1000,sep="_"), lapply(1:length(pos.chr), function(j) {
       !within[[j]] & sapply(1:length(ind[[j]]), function(i) {
-        return(any((pos.As[[j]][i] < (start.dsb.int[[j]]-addToHs-lens.grey[len.grey-1]) & (pos.As[[j]][i] >= (start.dsb.int[[j]]-addToHs-lens.grey[len.grey]))) | (pos.As[[j]][i] <= (end.dsb.int[[j]]+addToHs+lens.grey[len.grey-1]) & pos.As[[j]][i] > (end.dsb.int[[j]]+addToHs+lens.grey[len.grey]))))
+        return(any((pos.As[[j]][i] < (start.dsb.int[[j]]-addToHs-lens.grey[len.grey-1]) & (pos.As[[j]][i] >= (start.dsb.int[[j]]-addToHs-lens.grey[len.grey]))) | (pos.As[[j]][i] > (end.dsb.int[[j]]+addToHs+lens.grey[len.grey-1]) & pos.As[[j]][i] <= (end.dsb.int[[j]]+addToHs+lens.grey[len.grey]))))
         })
       }))
     message(paste("Number of greyzones finished: ", len.grey-1, " (of ", length(lens.grey)-1, ")", sep = ""))
