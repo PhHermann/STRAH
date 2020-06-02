@@ -57,7 +57,7 @@
 #' @keywords datasets array list methods univar
 #' @export
 #'
-STR_analysis = function(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A", lens.grey = 0:5*1000, addToHs = 0, start.position = NA,
+STR_analysis = function(seqName, nr.STRs = 10, max.nr.STRs=150, nr.mismatch = 0, chrs, STR = "A", lens.grey = 0:5*1000, addToHs = 0, start.position = NA,
                         end.position = NA, reverse.comp = FALSE, bed_file, pos_matrix, output_file,
                         species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, dsb_map = STRAH::dsb_map) {
  if(all(missing(seqName), missing(chrs), missing(bed_file), missing(pos_matrix))) {stop("Please only provide one of the parameters seqName, chrs, bed_file, or pos_matrix!")}
@@ -84,17 +84,17 @@ STR_analysis = function(seqName, nr.STRs = 10, nr.mismatch = 0, chrs, STR = "A",
  for(index in 1:length(chrs)) {
    if(any(!missing(bed_file), !missing(pos_matrix))){
      assign(paste0("results.", chrs[index]),
-            STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+            STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR, max.nr.STRs=max.nr.STRs,
                           start.position = start.position[index], end.position = end.position[index],
                           translated_regions=F, output_file = output_file, species = species)) # start.position = 1, end.position = chr.lengths[index],
    } else if(missing(seqName)) {
     assign(paste0("results.", chrs[index]),
-           STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+           STRAH::STR_detection(chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR, max.nr.STRs=max.nr.STRs,
                                  start.position = start.position, end.position = end.position,
                                  translated_regions=F, output_file = output_file, species = species)) # start.position = 1, end.position = chr.lengths[index],
   } else {
     assign(paste0("results.", chrs[index]),
-           STRAH::STR_detection(seqName = seqName, chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR,
+           STRAH::STR_detection(seqName = seqName, chrs = chrs[index], nr.mismatch = nr.mismatch, nr.STRs = nr.STRs, STR = STR, max.nr.STRs=max.nr.STRs,
                                  start.position = NA, end.position = NA, translated_regions=F, output_file = output_file,
                                  species = species)) # start.position = 1, end.position = chr.lengths[index],
    }
