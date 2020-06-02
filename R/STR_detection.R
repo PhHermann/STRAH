@@ -55,7 +55,7 @@
 #' @export
 
 STR_detection = function(seqName, chrs, start.position = NA, end.position = NA, bed_file,
-                         pos_matrix, nr.STRs,  nr.mismatch = 0, reverse.comp = F, STR = "A",
+                         pos_matrix, nr.STRs, max.nr.STRs, nr.mismatch = 0, reverse.comp = F, STR = "A",
                          species=BSgenome.Hsapiens.UCSC.hg19::Hsapiens, translated_regions=F, output_file) {
   min.nr = nr.STRs
   start.position = max(start.position, 1, na.rm = T)
@@ -116,7 +116,7 @@ STR_detection = function(seqName, chrs, start.position = NA, end.position = NA, 
     } else {
         message(paste0(name, " is under study!"),"\r",appendLF=TRUE)
     }
-
+if(nchar(STR) == 1){
     tp = unlist(strsplit(Biostrings::toString(sequence[s,]), split  ="")) == STR
     #motif <- paste(rep(STR, nr.STRs), collapse = "")
     #motif <- paste(STR, "{", nr.STRs, ",}")
@@ -154,9 +154,51 @@ STR_detection = function(seqName, chrs, start.position = NA, end.position = NA, 
     if (length(ind.double) != 0){ # only if there are more than one start positions of STRs
       start.pos <- start.pos[-ind.double]
     }
+  
+} else {
+  tsequence <- Biostrings::toString(sequence[s,])
+  bigdf <- data.frame(start = 0, end= 0, width = 0)
+  boundary <- (max.nr.STRs+1)*nchar(STR)
+  if(max.nr.STRs > nr.STRs){max.nr.STRs = max.nr.STRs + 1; boundary = max.nr.STRs*nchar(STR)}
+  if(max.nr.STRs < nr.STRs){message(paste0("Maximum number of STRs to search for is smaller than the minimum! ", name),"\r",appendLF=TRUE); next}
+  
+  for(i in max.nr.STRs:nr.STRs){
+    
+    pattern <- paste0(rep(STR, i), collapse="")
+    matches <- Biostrings::matchPattern(pattern,tsequence, max.mismatch = 0)
+    smalldf <- data.frame(IRanges::ranges(matches))
+    
+    if(nrow(smalldf) == 0){next} 
+    else{
+      duplicates = sapply(1:nrow(smalldf), function(j) {
+        return(any((smalldf$start[j]>=bigdf$start) & (smalldf$end[j] <= bigdf$end)))
+      })
+      
+      bigdf <- rbind(bigdf, smalldf[!duplicates,])
+    }
+  }
+
+  bigdf <- bigdf[order(bigdf$start),]
+  bigdf <- bigdf[!(bigdf$width >= boundary),]
+  
+  
+  start.pos <- bigdf$start[-1]
+  end_pos_STR.c <- bigdf$end[-1]
+  nr.STRs.c <- bigdf$width[-1]/nchar(STR)
+  
+  if(length(start.pos)==0) {
+    message(paste0("No STRs are contained in ", name),"\r",appendLF=TRUE)
+    next
+  }
+  
+  }
+  
+  
+  
     matches = sapply(1:length(start.pos), function(k) {
     # if STR ends at last position of interval
 
+      if(nchar(STR) == 1){
     if ((start.pos[k]+nr.STRs.c[k]-1) >= Biostrings::width(sequence[s,])){
       end_pos_STR <- width(sequence[s,]) # end of interval is end of STR
     }
@@ -170,6 +212,7 @@ STR_detection = function(seqName, chrs, start.position = NA, end.position = NA, 
         nr.STRs.c[k] = nr.STRs.c[k]-1
         temp = unlist(Biostrings::subseq(temp, 1, nchar(Biostrings::toString(temp))-1))
       }
+        } else {end_pos_STR <- end_pos_STR.c[k]}
       # if STR starts at first position of interval
       if (start.pos[k] <= 5){
         start <- start.pos[k]
